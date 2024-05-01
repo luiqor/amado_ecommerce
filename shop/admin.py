@@ -17,9 +17,8 @@ class BrandAdmin(admin.ModelAdmin):
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'price', 'photo', 'description', 
-                    'quantity', 'stars', 'category', 'brand']
-    list_filter = ['category', 'brand']
-    ordering = ['price','-price', 'created', '-created', 'stars', '-stars']
-    list_editable = ['name','price', 'photo', 'description', 
+                    'quantity', 'in_stock', 'stars', 'category', 'brand']
+    list_filter = ['category', 'brand', 'in_stock',]
+    list_editable = ['price', 'in_stock', 'photo', 'description', 
                      'quantity', 'stars']
     prepopulated_fields = {'slug': ('name',)}

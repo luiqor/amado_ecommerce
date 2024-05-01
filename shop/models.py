@@ -35,7 +35,7 @@ class Item (models.Model):
         validators=[MaxValueValidator(5), 
                     MinValueValidator(0)]
         )
-    creted = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, related_name='item', on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, related_name='item', on_delete=models.CASCADE)
 

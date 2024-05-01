@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 class Category (models.Model):
     name = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=255)   
@@ -26,7 +27,7 @@ class Brand (models.Model):
 class Item (models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
+    price = models.DecimalField(max_digits=15, decimal_places=2)
     photo = models.ImageField(upload_to='images/')
     description = models.TextField(blank=True)
     quantity = models.IntegerField()

@@ -28,7 +28,7 @@ def shop(request):
     )
 
 
-def item(request, item_id):
+def item(request, slug, item_id):
     item = Item.objects.get(id=item_id)
 
     item.stars_range = range(item.stars)

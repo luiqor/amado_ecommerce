@@ -29,5 +29,5 @@ def shop(request):
 
 
 def item(request):
-    
+
     return render(request, "item.html")

@@ -19,12 +19,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from shop.views import home, shop
+from shop.views import home, shop, item
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home, name="home"),
     path("shop/", shop, name="shop"),
+    path("item/", item, name="item"),
 ]
 
 

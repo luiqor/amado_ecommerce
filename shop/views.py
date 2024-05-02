@@ -28,6 +28,11 @@ def shop(request):
     )
 
 
-def item(request):
+def item(request, item_id):
+    item = Item.objects.get(id=item_id)
 
-    return render(request, "item.html")
+    item.stars_range = range(item.stars)
+    item.empty_stars_range = range(5 - item.stars)
+    return render(request, 
+                  "item.html",
+                  context={"item": item})

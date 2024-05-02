@@ -5,11 +5,9 @@
       <div class="col-12">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb mt-50">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Furniture</a></li>
-            <li class="breadcrumb-item"><a href="#">Chairs</a></li>
+            <li class="breadcrumb-item"><a href="/shop/">Магазин</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-              white modern chair
+              {{item.name}}
             </li>
           </ol>
         </nav>
@@ -24,63 +22,13 @@
             class="carousel slide"
             data-ride="carousel"
           >
-            <ol class="carousel-indicators">
-              <li
-                class="active"
-                data-target="#product_details_slider"
-                data-slide-to="0"
-                style="background-image: url(img/product-img/pro-big-1.jpg)"
-              ></li>
-              <li
-                data-target="#product_details_slider"
-                data-slide-to="1"
-                style="background-image: url(img/product-img/pro-big-2.jpg)"
-              ></li>
-              <li
-                data-target="#product_details_slider"
-                data-slide-to="2"
-                style="background-image: url(img/product-img/pro-big-3.jpg)"
-              ></li>
-              <li
-                data-target="#product_details_slider"
-                data-slide-to="3"
-                style="background-image: url(img/product-img/pro-big-4.jpg)"
-              ></li>
-            </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <a class="gallery_img" href="img/product-img/pro-big-1.jpg">
+                <a class="gallery_img" href="{{item.photo.url}}">
                   <img
                     class="d-block w-100"
-                    src="img/product-img/pro-big-1.jpg"
+                    src="{{item.photo.url}}"
                     alt="First slide"
-                  />
-                </a>
-              </div>
-              <div class="carousel-item">
-                <a class="gallery_img" href="img/product-img/pro-big-2.jpg">
-                  <img
-                    class="d-block w-100"
-                    src="img/product-img/pro-big-2.jpg"
-                    alt="Second slide"
-                  />
-                </a>
-              </div>
-              <div class="carousel-item">
-                <a class="gallery_img" href="img/product-img/pro-big-3.jpg">
-                  <img
-                    class="d-block w-100"
-                    src="img/product-img/pro-big-3.jpg"
-                    alt="Third slide"
-                  />
-                </a>
-              </div>
-              <div class="carousel-item">
-                <a class="gallery_img" href="img/product-img/pro-big-4.jpg">
-                  <img
-                    class="d-block w-100"
-                    src="img/product-img/pro-big-4.jpg"
-                    alt="Fourth slide"
                   />
                 </a>
               </div>
@@ -93,35 +41,31 @@
           <!-- Product Meta Data -->
           <div class="product-meta-data">
             <div class="line"></div>
-            <p class="product-price">$180</p>
-            <a href="product-details.html">
-              <h6>White Modern Chair</h6>
-            </a>
+            <p class="product-price">{{item.price}}грн</p>
+            <h2>{{item.name}}</h2>
+
             <!-- Ratings & Review -->
             <div
               class="ratings-review mb-15 d-flex align-items-center justify-content-between"
             >
               <div class="ratings">
+                {% for star in item.stars_range %}
                 <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-              </div>
-              <div class="review">
-                <a href="#">Write A Review</a>
+                {% endfor %} {% for star in item.empty_stars_range %}
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                {% endfor %}
               </div>
             </div>
             <!-- Avaiable -->
-            <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+            {% if item.in_stock %}
+            <p class="avaibility"><i class="fa fa-circle"></i> В наявності</p>
+            {% else %}
+            <p class="avaibility"><i class="fa"></i> Немає в наявності</p>
+            {% endif %}
           </div>
 
           <div class="short_overview my-5">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
-              quae eveniet culpa officia quidem mollitia impedit iste asperiores
-              nisi reprehenderit consequatur, autem, nostrum pariatur enim?
-            </p>
+            <p>{{item.description}}</p>
           </div>
 
           <!-- Add to Cart Form -->
@@ -157,7 +101,7 @@
               value="5"
               class="btn amado-btn"
             >
-              Add to cart
+              Додати у кошик
             </button>
           </form>
         </div>

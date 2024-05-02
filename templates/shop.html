@@ -1,4 +1,7 @@
 {% extends 'base.html' %} 
+<head>
+  <title>Amado | Shop</title>
+</head>
 {% block content %}
   <div class="shop_sidebar_area">
     {% include 'shop/categories.html'%}
@@ -9,5 +12,10 @@
         <a href="#" class="btn amado-btn mb-15">Find</a>
       </div>
   </div>
-  {% include 'shop/product-area.html' %}
+  <div class="amado_product_area section-padding-100">
+    <div class="container-fluid">
+      {% include 'shop/topbar.html' %}
+      {% include 'shop/items.html' %}
+    </div>
+</div>
 {% endblock %}

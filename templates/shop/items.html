@@ -1,0 +1,72 @@
+{% load static %}
+<div class="row">
+  {% for item in items %}
+    <!-- Single Product Area -->
+    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+      <div class="single-product-wrapper">
+        <!-- Product Image -->
+        <div class="product-img">
+          <a href="/product-details/{{ item.slug }}">
+          <img src={{ item.photo.url }} alt="" />
+          </a>
+        </div>
+
+        <!-- Product Description -->
+        <div
+          class="product-description d-flex align-items-center justify-content-between"
+        >
+          <!-- Product Meta Data -->
+          <div class="product-meta-data">
+            <div class="line"></div>
+            <p class="product-price">${{ item.price }}</p>
+            <a href="/product-details/{{ item.slug }}">
+              <h6>{{ item.name }}</h6>
+            </a>
+          </div>
+          <!-- Ratings & Cart -->
+          <div class="ratings-cart text-right">
+            <div class="ratings">
+              {% for star in item.stars_range %}
+                  <i class="fa fa-star" aria-hidden="true"></i>
+              {% endfor %}
+              {% for star in item.empty_stars_range %}
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+              {% endfor %}
+            </div>
+            <div class="cart">
+              <a
+                href="cart.html"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="Add to Cart"
+                ><img src="{% static 'img/core-img/cart.png' %}" alt="Cart"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<div class="row">
+  <div class="col-12">
+    <!-- Pagination -->
+    <nav aria-label="navigation">
+      <ul class="pagination justify-content-end mt-50">
+        <li class="page-item active">
+          <a class="page-link" href="#">01.</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">02.</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">03.</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">04.</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+      

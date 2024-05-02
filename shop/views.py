@@ -3,7 +3,13 @@ from .models import Category, Brand, Item
 
 
 def home(request):
-    return render(request, "index.html")
+    top_rated_items = Item.objects.order_by('-stars')[:9]
+
+    return render(
+        request, 
+        "index.html",
+        context={"items": top_rated_items}
+        )
 
 
 def shop(request):
@@ -20,3 +26,8 @@ def shop(request):
         "shop.html",
         context={"categories": categories, "brands": brands, "items": items},
     )
+
+
+def item(request):
+    
+    return render(request, "item.html")

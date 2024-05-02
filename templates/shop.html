@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+<head>
+  <title>Amado | Shop</title>
+</head>
+{% block content %}
+  <div class="shop_sidebar_area">
+    {% include 'shop/categories.html'%}
+    {% include 'shop/brands.html'%}
+    {% include 'shop/price.html'%}
+      <!-- Button Group -->
+      <div class="amado-btn-group mt-30 mb-100">
+        <a href="#" class="btn amado-btn mb-15">Find</a>
+      </div>
+  </div>
+  <div class="amado_product_area section-padding-100">
+    <div class="container-fluid">
+      {% include 'shop/topbar.html' %}
+      {% include 'shop/items.html' %}
+    </div>
+</div>
+{% endblock %}

@@ -4,10 +4,9 @@
 
     <div class="widget-desc">
     {% for brand in brands %}
-        <!-- Single Form Check -->
         <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="amado" />
-        <label class="form-check-label" for="amado">{{ brand }}</label>
+            <input class="form-check-input" type="checkbox" name="brand" value="{{ brand }}" id="{{ brand }}">
+            <label class="form-check-label" for="{{ brand }}">{{ brand }}</label>
         </div>
     {% endfor %}
     </div>

@@ -11,3 +11,38 @@
     /* ---------------------------------------
     ##### - PLACE YOUR CUSTOM CSS HERE - #####
     --------------------------------------- */
+   .wrap-fixed-height {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.wrap-fixed-height .image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.wrap-fixed-height .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.display-none {
+    display: none;
+}
+
+.form-check-input:checked + .form-check-label {
+    transition: 500ms;
+    color: #fbb710;
+}
+
+.widget.catagory .form-check {
+    margin-bottom: 25px;
+    color: #959595;
+}

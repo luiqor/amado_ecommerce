@@ -4,13 +4,16 @@
 </head>
 {% block content %}
   <div class="shop_sidebar_area">
-    {% include 'shop/categories.html'%}
-    {% include 'shop/brands.html'%}
-    {% include 'shop/price.html'%}
-      <!-- Button Group -->
-      <div class="amado-btn-group mt-30 mb-100">
-        <a href="#" class="btn amado-btn mb-15">Find</a>
-      </div>
+    <form method="post">
+      {% include 'shop/categories.html'%}
+      {% include 'shop/brands.html'%}
+      {% include 'shop/price.html'%}
+        <!-- Button Group -->
+        {% csrf_token %}
+        <div class="amado-btn-group mt-30 mb-100">
+          <button type="submit" class="btn amado-btn mb-15">Find</button>
+        </div>
+     </form>
   </div>
   <div class="amado_product_area section-padding-100">
     <div class="container-fluid">

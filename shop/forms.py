@@ -1,27 +1,27 @@
 from django import forms
-from .models import Item, Brand, Category
 
 
-class ItemFilterForm(forms.Form):
-    min_price = forms.FloatField(required=False)
-    max_price = forms.FloatField(required=False)
-    brand = forms.ModelChoiceField(
-        queryset=Brand.objects.all(),
-        required=False,
+class TopBarForm(forms.Form):
+    select = forms.ChoiceField(
+        choices=[
+            ("price", "Price"),
+            ("newest", "Newest"),
+            ("popular", "Popular"),
+        ],
+        widget=forms.Select(
+            attrs={"onchange": "submitFormWithFilterParams(this.form)"}
+        ),
     )
-    category = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
-        required=False,
+    items_per_page = forms.ChoiceField(
+        choices=[
+            (2, "2"),
+            (5, "5"),
+            (12, "12"),
+            (24, "24"),
+            (48, "48"),
+            (96, "96"),
+        ],
+        widget=forms.Select(
+            attrs={"onchange": "submitFormWithFilterParams(this.form)"}
+        ),
     )
-
-    def filter_items(self):
-        items = Item.objects.all()
-        if self.cleaned_data.get("min_price"):
-            items = items.filter(price__gte=self.cleaned_data["min_price"])
-        if self.cleaned_data.get("max_price"):
-            items = items.filter(price__lte=self.cleaned_data["max_price"])
-        if self.cleaned_data.get("brand"):
-            items = items.filter(brand=self.cleaned_data["brand"])
-        if self.cleaned_data.get("category"):
-            items = items.filter(category=self.cleaned_data["category"])
-        return items

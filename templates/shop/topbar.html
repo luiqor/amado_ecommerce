@@ -8,33 +8,20 @@
                 <p>Showing {{ items.start_index }}-{{ items.end_index }} of {{ total_items }}</p>
             </div>
             <!-- Sorting -->
+            <form method="get">
             <div class="product-sorting d-flex">
               <div class="sort-by-date d-flex align-items-center mr-15">
-                <p>Sort by</p>
-                <form method="get">
-                  <select name="select" id="sort-by-date" onchange="submitFormWithFilterParams(this.form)">
-                      <option value="price" {% if sort_by == 'price' %}selected{% endif %}>Price</option>
-                      <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest</option>
-                      <option value="popular" {% if sort_by == 'popular' %}selected{% endif %}>Popular</option>
-                  </select>
+                  <p>Sort by</p>
+                  {{ topbar_form.select }}
                   <input type="hidden" name="items_per_page" value="{{ items_per_page }}">
-              </form>
               </div>
               <div class="view-product d-flex align-items-center">
-                <p>View</p>
-                  <form method="get" id="items-per-page-form">
-                  <select name="items_per_page" id="viewProduct" onchange="submitFormWithFilterParams(this.form)">
-                      <option value="2" {% if items_per_page == '2' %}selected{% endif %}>2</option>
-                      <option value="5" {% if items_per_page == '5' %}selected{% endif %}>5</option>
-                      <option value="12" {% if items_per_page == '12' %}selected{% endif %}>12</option>
-                      <option value="24" {% if items_per_page == '24' %}selected{% endif %}>24</option>
-                      <option value="48" {% if items_per_page == '48' %}selected{% endif %}>48</option>
-                      <option value="96" {% if items_per_page == '96' %}selected{% endif %}>96</option>
-                  </select>
+                  <p>View</p>
+                  {{ topbar_form.items_per_page }}
                   <input type="hidden" name="select" value="{{ sort_by }}">
-                </form>
               </div>
             </div>
+          </form>
           </div>
         </div>
 </div>

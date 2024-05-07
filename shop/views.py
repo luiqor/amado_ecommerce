@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db.models import Min, Max
 from .models import Category, Brand, Item
 from django.core.paginator import Paginator
+from .forms import TopBarForm
 
 
 def home(request):
@@ -36,7 +37,7 @@ def shop(request):
     paginator = Paginator(items, items_per_page)
     page_number = request.GET.get("page")
     paginated_items = paginator.get_page(page_number)
-
+    topbar_form = TopBarForm(request.GET)
     return render(
         request,
         "shop.html",
@@ -51,6 +52,7 @@ def shop(request):
             "items_per_page": items_per_page,
             "total_items": paginator.count,
             "sort_by": sort_by,
+            "topbar_form": topbar_form,
         },
     )
 

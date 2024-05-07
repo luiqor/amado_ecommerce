@@ -11,13 +11,14 @@
             <div class="product-sorting d-flex">
               <div class="sort-by-date d-flex align-items-center mr-15">
                 <p>Sort by</p>
-                <form action="#" method="get">
-                  <select name="select" id="sortBydate">
-                    <option value="value">Price</option>
-                    <option value="value">Newest</option>
-                    <option value="value">Popular</option>
+                <form action="{% url 'shop' %}" method="get">
+                  <select name="select" id="sortBydate" onchange="this.form.submit()">
+                      <option value="price" {% if sort_by == 'price' %}selected{% endif %}>Price</option>
+                      <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest</option>
+                      <option value="popular" {% if sort_by == 'popular' %}selected{% endif %}>Popular</option>
                   </select>
-                </form>
+                  <input type="hidden" name="items_per_page" value="{{ items_per_page }}">
+              </form>
               </div>
               <div class="view-product d-flex align-items-center">
                 <p>View</p>
@@ -30,6 +31,7 @@
                       <option value="48" {% if items_per_page == '48' %}selected{% endif %}>48</option>
                       <option value="96" {% if items_per_page == '96' %}selected{% endif %}>96</option>
                   </select>
+                  <input type="hidden" name="select" value="{{ sort_by }}">
                 </form>
               </div>
             </div>

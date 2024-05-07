@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-12">
+    <!-- Pagination -->
+    <nav aria-label="navigation">
+      <ul class="pagination justify-content-end mt-50">
+        {% for i in items.paginator.page_range %}
+          {% if items.number == i %}
+            <li class="page-item active">
+              <a class="page-link" href="?page={{ i }}&select={{ sort_by }}">{{ i }}.</a>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ i }}&select={{ sort_by }}">{{ i }}.</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</div>

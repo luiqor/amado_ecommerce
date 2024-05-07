@@ -14,7 +14,6 @@ def shop(request):
     items = Item.objects.all()
     categories = Category.objects.all()
     brands = Brand.objects.all()
-
     min_price = None
     max_price = None
     smallest_price = items.aggregate(Min("price"))["price__min"]

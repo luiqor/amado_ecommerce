@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Min, Max
 from .models import Category, Brand, Item
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -22,17 +23,28 @@ def shop(request):
     if request.method == "POST":
         items, min_price, max_price = filter_items(request, items)
 
+    items_per_page = request.GET.get("items_per_page")
+    if items_per_page:
+        request.session["items_per_page"] = items_per_page
+    else:
+        items_per_page = request.session.get("items_per_page", 3)
+    paginator = Paginator(items, items_per_page)
+    page_number = request.GET.get("page")
+    paginated_items = paginator.get_page(page_number)
+
     return render(
         request,
         "shop.html",
         context={
             "categories": categories,
             "brands": brands,
-            "items": items,
+            "items": paginated_items,
             "smallest_price": smallest_price,
             "biggest_price": biggest_price,
             "min_price": round(min_price) if min_price else smallest_price,
             "max_price": round(max_price) if max_price else biggest_price,
+            "items_per_page": items_per_page,
+            "total_items": paginator.count,
         },
     )
 

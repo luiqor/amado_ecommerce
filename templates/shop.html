@@ -1,22 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="shop_sidebar_area">
-    <form method="post">
+<div class="shop_sidebar_area">
+    <form method="get" id="filter-form">
       {% include 'shop/categories.html'%}
       {% include 'shop/brands.html'%}
       {% include 'shop/price.html'%}
         <!-- Button Group -->
-        {% csrf_token %}
         <div class="amado-btn-group mt-30 mb-100">
           <button type="submit" class="btn amado-btn mb-15">Find</button>
         </div>
-     </form>
-  </div>
-  <div class="amado_product_area section-padding-100">
+      </form>
+</div>
+<div class="amado_product_area section-padding-100">
     <div class="container-fluid">
       {% include 'shop/topbar.html' %}
       {% include 'shop/items.html' %}
       {% include 'shop/pagination.html'%}
     </div>
 </div>
+<script>
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            let url = new URL(this.action);
+            document.querySelectorAll('form').forEach(otherForm => {
+                new FormData(otherForm).forEach((value, key) => {
+                    if (value) { // Only add parameter if it has a value
+                        url.searchParams.set(key, value);
+                    }
+                });
+                // Capture selected values of <select> elements
+                otherForm.querySelectorAll('select').forEach(select => {
+                    if (select.value) { // Only add parameter if it has a value
+                        url.searchParams.set(select.name, select.value);
+                    }
+                });
+            });
+            window.location.href = url.toString();
+        });
+    });
+    
+</script>
 {% endblock %}

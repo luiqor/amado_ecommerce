@@ -6,11 +6,11 @@
         {% for i in items.paginator.page_range %}
           {% if items.number == i %}
             <li class="page-item active">
-              <a class="page-link" href="?page={{ i }}&select={{ sort_by }}">{{ i }}.</a>
+              <a class="page-link" href="?page={{ i }}&select={{ request.session.sort_by }}&items_per_page={{ request.session.items_per_page }}&brand={{ request.GET.brand }}&category={{ request.GET.category }}&min_price={{ request.GET.min_price }}&max_price={{ request.GET.max_price }}">{{ i }}.</a>
             </li>
           {% else %}
             <li class="page-item">
-              <a class="page-link" href="?page={{ i }}&select={{ sort_by }}">{{ i }}.</a>
+              <a class="page-link" href="?page={{ i }}&select={{ request.session.sort_by }}&items_per_page={{ request.session.items_per_page }}&brand={{ request.GET.brand }}&category={{ request.GET.category }}&min_price={{ request.GET.min_price }}&max_price={{ request.GET.max_price }}">{{ i }}.</a>
             </li>
           {% endif %}
         {% endfor %}

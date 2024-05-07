@@ -19,10 +19,16 @@ def shop(request):
     smallest_price = items.aggregate(Min("price"))["price__min"]
     biggest_price = items.aggregate(Max("price"))["price__max"]
 
-    if request.method == "POST":
+    if request.method == "GET":
         items, min_price, max_price = filter_items(request, items)
 
-    sort_by = request.GET.get("select", "newest")
+    sort_by = request.GET.get("select")
+    if sort_by:
+        sort_by = sort_by.strip()
+        request.session["sort_by"] = sort_by
+    else:
+        sort_by = request.session.get("sort_by", "newest")
+
     if sort_by == "price":
         items = items.order_by("price")
     elif sort_by == "newest":
@@ -32,9 +38,11 @@ def shop(request):
 
     items_per_page = request.GET.get("items_per_page")
     if items_per_page:
+        items_per_page = items_per_page.strip()
         request.session["items_per_page"] = items_per_page
     else:
         items_per_page = request.session.get("items_per_page", 3)
+
     paginator = Paginator(items, items_per_page)
     page_number = request.GET.get("page")
     paginated_items = paginator.get_page(page_number)
@@ -58,19 +66,19 @@ def shop(request):
 
 
 def filter_items(request, items):
-    category = request.POST.get("category")
-    brand = request.POST.get("brand")
-    min_price = request.POST.get("min_price")
-    max_price = request.POST.get("max_price")
+    category_slug = request.GET.get("category")
+    brand_slug = request.GET.get("brand")
+    min_price = request.GET.get("min_price")
+    max_price = request.GET.get("max_price")
 
     if min_price and max_price:
         min_price = float(min_price)
         max_price = float(max_price)
 
-    if category:
-        items = items.filter(category__name=category)
-    if brand:
-        items = items.filter(brand__name=brand)
+    if category_slug:
+        items = items.filter(category__slug=category_slug)
+    if brand_slug:
+        items = items.filter(brand__slug=brand_slug)
     if min_price and max_price:
         items = items.filter(price__range=(min_price, max_price))
 

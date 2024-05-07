@@ -8,7 +8,7 @@
           <!-- "horizontal-catagories", class="active" for active category li-->
           {% for category in categories %}
               <div class="form-check">
-                  <input class="form-check-input display-none" type="radio" name="category" value="{{ category }}" id="{{ category }}">
+                  <input class="form-check-input display-none" type="radio" name="category" value="{{ category.slug }}" id="{{ category }}">
                   <label class="form-check-label" for="{{ category }}">{{ category }}</label>
               </div>
           {% endfor %}

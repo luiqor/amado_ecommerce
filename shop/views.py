@@ -22,12 +22,7 @@ def shop(request):
     if request.method == "GET":
         items, min_price, max_price = filter_items(request, items)
 
-    sort_by = request.GET.get("select")
-    if sort_by:
-        sort_by = sort_by.strip()
-        request.session["sort_by"] = sort_by
-    else:
-        sort_by = request.session.get("sort_by", "newest")
+    sort_by = request.GET.get("select", "newest").strip()
 
     if sort_by == "price":
         items = items.order_by("price")
@@ -36,12 +31,7 @@ def shop(request):
     elif sort_by == "popular":
         items = items.order_by("-stars")
 
-    items_per_page = request.GET.get("items_per_page")
-    if items_per_page:
-        items_per_page = items_per_page.strip()
-        request.session["items_per_page"] = items_per_page
-    else:
-        items_per_page = request.session.get("items_per_page", 3)
+    items_per_page = request.GET.get("items_per_page", 2)
 
     paginator = Paginator(items, items_per_page)
     page_number = request.GET.get("page")

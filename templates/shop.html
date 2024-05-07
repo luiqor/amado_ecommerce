@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <div class="shop_sidebar_area">
     <form method="get" id="filter-form">
@@ -18,27 +19,5 @@
       {% include 'shop/pagination.html'%}
     </div>
 </div>
-<script>
-    document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            let url = new URL(this.action);
-            document.querySelectorAll('form').forEach(otherForm => {
-                new FormData(otherForm).forEach((value, key) => {
-                    if (value) { // Only add parameter if it has a value
-                        url.searchParams.set(key, value);
-                    }
-                });
-                // Capture selected values of <select> elements
-                otherForm.querySelectorAll('select').forEach(select => {
-                    if (select.value) { // Only add parameter if it has a value
-                        url.searchParams.set(select.name, select.value);
-                    }
-                });
-            });
-            window.location.href = url.toString();
-        });
-    });
-    
-</script>
+<script src="{% static "js/shop.js" %}"></script>
 {% endblock %}

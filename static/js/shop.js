@@ -1,13 +1,13 @@
 function updateUrlParams(form, url) {
-new FormData(form).forEach((value, key) => {
-    if (value) { // Only add parameter if it has a value
-        url.searchParams.set(key, value);
-    }
+    new FormData(form).forEach((value, key) => {
+        if (value) { // Only add parameter if it has a value
+            url.searchParams.append(key, value);
+        }
     });
 
     form.querySelectorAll('select').forEach(select => {
         if (select.value) { // Only add parameter if it has a value
-            url.searchParams.set(select.name, select.value);
+            url.searchParams.append(select.name, select.value);
         }
     });
 }
@@ -19,6 +19,7 @@ document.querySelectorAll('form').forEach(form => {
         document.querySelectorAll('form').forEach(form => {
             updateUrlParams(form, url);
         });
+        console.log(url.toString());
         window.location.href = url.toString();
     });
 });

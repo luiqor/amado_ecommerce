@@ -1,4 +1,3 @@
-
 <div class="widget price mb-50">
     <!-- Widget Title -->
     <h6 class="widget-title mb-30">Price</h6>
@@ -24,8 +23,8 @@
             tabindex="0"
         ></span>
         </div>
-        <input type="hidden" name="min_price" id="min_price">
-        <input type="hidden" name="max_price" id="max_price">
+        {{ filter_form.min_price }}
+        {{ filter_form.max_price }}
         <div class="range-price">{{ min_price }}₴ - {{ max_price }}₴</div>
     </div>
     </div>

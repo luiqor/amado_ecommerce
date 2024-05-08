@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.db.models import Min, Max
 from .models import Category, Brand, Item
 from django.core.paginator import Paginator
-from .forms import TopBarForm
+from .forms import TopBarForm, FilterForm
 
 
 def home(request):
@@ -20,20 +20,39 @@ def shop(request):
     smallest_price = items.aggregate(Min("price"))["price__min"]
     biggest_price = items.aggregate(Max("price"))["price__max"]
 
+    filter_form = FilterForm(request.GET)
+    if filter_form.is_valid():
+        print(filter_form.cleaned_data)
+        if filter_form.cleaned_data["category"]:
+            items = items.filter(
+                category__slug=filter_form.cleaned_data["category"]
+            )
+
+        if filter_form.cleaned_data["brands"]:
+            items = items.filter(
+                brand__slug__in=filter_form.cleaned_data["brands"]
+            )
+
+        if filter_form.cleaned_data["min_price"]:
+            items = items.filter(
+                price__gte=filter_form.cleaned_data["min_price"]
+            )
+
+        if filter_form.cleaned_data["max_price"]:
+            items = items.filter(
+                price__lte=filter_form.cleaned_data["max_price"]
+            )
+
     if request.method == "GET":
-        items, min_price, max_price = filter_items(request, items)
-
-    sort_by = request.GET.get("select", "newest").strip()
-
-    if sort_by == "price":
-        items = items.order_by("price")
-    elif sort_by == "newest":
-        items = items.order_by("-created")
-    elif sort_by == "popular":
-        items = items.order_by("-stars")
+        sort_by = request.GET.get("select", "newest").strip()
+        if sort_by == "price":
+            items = items.order_by("price")
+        elif sort_by == "newest":
+            items = items.order_by("-created")
+        elif sort_by == "popular":
+            items = items.order_by("-stars")
 
     items_per_page = request.GET.get("items_per_page", 2)
-
     paginator = Paginator(items, items_per_page)
     page_number = request.GET.get("page")
     paginated_items = paginator.get_page(page_number)
@@ -52,29 +71,10 @@ def shop(request):
             "items_per_page": items_per_page,
             "total_items": paginator.count,
             "sort_by": sort_by,
+            "filter_form": filter_form,
             "topbar_form": topbar_form,
         },
     )
-
-
-def filter_items(request, items):
-    category_slug = request.GET.get("category")
-    brand_slug = request.GET.get("brand")
-    min_price = request.GET.get("min_price")
-    max_price = request.GET.get("max_price")
-
-    if min_price and max_price:
-        min_price = float(min_price)
-        max_price = float(max_price)
-
-    if category_slug:
-        items = items.filter(category__slug=category_slug)
-    if brand_slug:
-        items = items.filter(brand__slug=brand_slug)
-    if min_price and max_price:
-        items = items.filter(price__range=(min_price, max_price))
-
-    return items, min_price, max_price
 
 
 def item(request, slug, item_id):

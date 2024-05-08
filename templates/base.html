@@ -172,6 +172,7 @@
 
 
 <script>
+  // Add Item
   $(document).on("click", "#add-button", function (e) {
     e.preventDefault();
     var addToCartUrl = '{% url "cart:cart_add" %}';
@@ -201,4 +202,54 @@
       },
     });
   });
+
+  // Update Item
+  $(document).on("click", ".update-button", function (e) {
+    e.preventDefault();
+    var prodid = $(this).data("index");
+    console.log(prodid);
+    var itemQty = $("#qty-" + prodid).val();
+    console.log("Item Quantity:", itemQty);
+    $.ajax({
+      type: "POST",
+      url: '{% url "cart:cart_update" %}',
+      data: {
+        itemid: prodid,
+        itemqty: itemQty,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+      success: function (json) {
+        console.log("Success:", json);
+        document.getElementById("cart-qty").innerHTML = json.qty;
+        document.getElementById("subtotal").innerHTML = json.subtotal;
+      },
+      error: function (xhr, errmsg, err) {
+        console.log("Error:", errmsg);
+      },
+    });
+  });
+
+   // Delete Item
+  $(document).on('click', '.delete-button', function (e) {
+    e.preventDefault();
+    var prodid = $(this).data("index");
+    console.log("id", prodid)
+    $.ajax({
+      type: 'POST',
+      url: '{% url "cart:cart_delete" %}',
+      data: {
+       itemid: $(this).data('index'),
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: 'post'
+      },
+      success: function (json) {
+        $('.this-item[data-index="' + prodid + '"]').remove();
+        document.getElementById("cart-qty").innerHTML = json.qty
+        document.getElementById("subtotal").innerHTML = json.subtotal;
+        
+      },
+      error: function (xhr, errmsg, err) {}
+    });
+  })
 </script>

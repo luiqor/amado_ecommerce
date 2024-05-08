@@ -19,11 +19,10 @@ class Cart:
         else:
             self.cart[item_id] = {'price': str(item.price), 'qty': qty}
 
-        self.session.modified = True
+        self.save()
 
 
     def __iter__(self):
-
         item_ids = self.cart.keys()
         items = Item.objects.filter(id__in=item_ids)
         cart = self.cart.copy()
@@ -39,6 +38,27 @@ class Cart:
 
     def __len__(self):
         return sum(item['qty'] for item in self.cart.values())
-    
+
+
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.cart.values())
+
+
+    def update(self, item, qty):
+        item_id = str(item)
+        if item_id in self.cart:
+            self.cart[item_id]['qty'] = qty
+        self.save()
+
+
+    def delete(self, item):
+        item_id = str(item)
+
+        if item_id in self.cart:
+            del self.cart[item_id]
+            print(item_id)
+            self.save()
+
+
+    def save(self):
+        self.session.modified = True

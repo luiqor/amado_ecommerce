@@ -19,7 +19,9 @@
                   {{ topbar_form.items_per_page }}
               </div>
               <input type="hidden" name="category" value="{{ last_selected_category }}">
-              <input type="hidden" name="brands" value="{{ last_selected_brands }}">
+              {% for brand in last_selected_brands %}
+                  <input type="hidden" name="brands" value="{{ brand }}">
+              {% endfor %}
               <input type="hidden" name="min_price" value="{{ min_price }}">
               <input type="hidden" name="max_price" value="{{ max_price }}">
             </div>

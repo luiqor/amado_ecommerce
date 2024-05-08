@@ -78,7 +78,7 @@ def shop(request):
             "filter_form": filter_form,
             "topbar_form": topbar_form,
             "last_selected_category": last_selected_category,
-            "last_selected_brands": ", ".join(last_selected_brands),
+            "last_selected_brands": last_selected_brands,
         },
     )
 

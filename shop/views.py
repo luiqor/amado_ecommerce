@@ -15,6 +15,8 @@ def shop(request):
     items = Item.objects.all()
     categories = Category.objects.all()
     brands = Brand.objects.all()
+    last_selected_category = None
+    last_selected_brands = []
     min_price = None
     max_price = None
     smallest_price = items.aggregate(Min("price"))["price__min"]
@@ -42,6 +44,8 @@ def shop(request):
             items = items.filter(
                 price__lte=filter_form.cleaned_data["max_price"]
             )
+        last_selected_category = filter_form.cleaned_data["category"]
+        last_selected_brands = filter_form.cleaned_data["brands"]
 
     if request.method == "GET":
         sort_by = request.GET.get("select", "newest").strip()
@@ -73,6 +77,8 @@ def shop(request):
             "sort_by": sort_by,
             "filter_form": filter_form,
             "topbar_form": topbar_form,
+            "last_selected_category": last_selected_category,
+            "last_selected_brands": ", ".join(last_selected_brands),
         },
     )
 

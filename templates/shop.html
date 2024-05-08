@@ -7,6 +7,8 @@
       {% include 'shop/brands.html'%}
       {% include 'shop/price.html'%}
         <!-- Button Group -->
+          <input type="hidden" name="items_per_page" value="{{ items_per_page }}">
+          <input type="hidden" name="select" value="{{ sort_by }}">
         <div class="amado-btn-group mt-30 mb-100">
           <button type="submit" class="btn amado-btn mb-15">Find</button>
         </div>

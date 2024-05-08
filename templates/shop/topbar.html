@@ -13,13 +13,15 @@
               <div class="sort-by-date d-flex align-items-center mr-15">
                   <p>Sort by</p>
                   {{ topbar_form.select }}
-                  <input type="hidden" name="items_per_page" value="{{ items_per_page }}">
               </div>
               <div class="view-product d-flex align-items-center">
                   <p>View</p>
                   {{ topbar_form.items_per_page }}
-                  <input type="hidden" name="select" value="{{ sort_by }}">
               </div>
+              <input type="hidden" name="category" value="{{ last_selected_category }}">
+              <input type="hidden" name="brands" value="{{ last_selected_brands }}">
+              <input type="hidden" name="min_price" value="{{ min_price }}">
+              <input type="hidden" name="max_price" value="{{ max_price }}">
             </div>
           </form>
           </div>

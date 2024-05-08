@@ -49,9 +49,7 @@ class TopBarForm(forms.Form):
             ("newest", "Newest"),
             ("popular", "Popular"),
         ],
-        widget=forms.Select(
-            attrs={"onchange": "submitFormWithFilterParams(this.form)"}
-        ),
+        widget=forms.Select(attrs={"onchange": "submit(this.form)"}),
     )
     items_per_page = forms.ChoiceField(
         choices=[
@@ -62,7 +60,5 @@ class TopBarForm(forms.Form):
             (48, "48"),
             (96, "96"),
         ],
-        widget=forms.Select(
-            attrs={"onchange": "submitFormWithFilterParams(this.form)"}
-        ),
+        widget=forms.Select(attrs={"onchange": "submit(this.form)"}),
     )

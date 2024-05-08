@@ -59,8 +59,8 @@
 
         <!-- Cart Menu -->
         <div class="cart-fav-search mb-100">
-          <a href="cart.html" class="cart-nav"
-            ><img src="{% static 'img/core-img/cart.png' %}" alt="Cart"> Кошик <span>(0)</span></a
+          <a href="{% url "cart:cart_summary" %}" class="cart-nav"
+            ><img src="{% static 'img/core-img/cart.png' %}" alt="Cart"> Кошик <span id="cart-qty">0</span></a
           >
         </div>
         <!-- Social Button -->
@@ -145,7 +145,8 @@
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-    <script src="{% static "js/jquery/jquery-2.2.4.min.js" %}"></script>
+    {% comment %} <script src="{% static "js/jquery/jquery-2.2.4.min.js" %}"></script> {% endcomment %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Popper js -->
     <script src="{% static "js/popper.min.js" %}"></script>
     <!-- Bootstrap js -->
@@ -154,5 +155,41 @@
     <script src="{% static "js/plugins.js" %}"></script>
     <!-- Active js -->
     <script src="{% static "js/active.js" %}"></script>
+    <!-- Our js -->
+    <script src="{% static "script.js" %}"></script>
   </body>
 </html>
+
+
+
+<script>
+  $(document).on("click", "#add-button", function (e) {
+    e.preventDefault();
+    var addToCartUrl = '{% url "cart:cart_add" %}';
+    console.log(addToCartUrl)
+    var itemid = $(this).val();
+    var itemqty = $("#qty").val();
+    console.log(itemid, itemqty)
+    $.ajax({
+      type: "POST",
+      url: addToCartUrl,
+      data: {
+        itemid: itemid,
+        itemqty: itemqty,  
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        action: "post",
+      },
+      success: function (json) {
+        if (json) { 
+          document.getElementById("cart-qty").innerHTML = json.qty;
+          console.log("Товар успішно додано у кошик");
+        } else {
+          console.log("Помилка: товар не було додано у кошик");
+        }
+      },
+      error: function (xhr, errmsg, err) {
+        console.log("Помилка: не вдалося відправити запит на сервер");
+      },
+    });
+  });
+</script>

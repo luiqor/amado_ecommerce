@@ -58,11 +58,20 @@
         </nav>
 
         <!-- Cart Menu -->
-        <div class="cart-fav-search mb-100">
-          <a href="{% url "cart:cart_summary" %}" class="cart-nav"
-            ><img src="{% static 'img/core-img/cart.png' %}" alt="Cart"> Кошик <span id="cart-qty">0</span></a
-          >
-        </div>
+       <div class="cart-fav-search mb-100">
+          <a href="{% url 'cart:cart_summary' %}" class="cart-nav">
+              <img src="{% static 'img/core-img/cart.png' %}" alt="Cart"> Кошик 
+              <span id="cart-qty">
+                  {% with total_qty=cart|length %}
+                      {% if total_qty > 0 %}
+                          {{ total_qty }}
+                      {% else %}
+                          0
+                      {% endif %}
+                  {% endwith %}
+              </span>
+          </a>
+      </div>
         <!-- Social Button -->
         <div class="social-info d-flex justify-content-between">
           <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>

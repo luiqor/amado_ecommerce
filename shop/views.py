@@ -24,26 +24,17 @@ def shop(request):
 
     filter_form = FilterForm(request.GET)
     if filter_form.is_valid():
-        print(filter_form.cleaned_data)
-        if filter_form.cleaned_data["category"]:
-            items = items.filter(
-                category__slug=filter_form.cleaned_data["category"]
-            )
-
-        if filter_form.cleaned_data["brands"]:
-            items = items.filter(
-                brand__slug__in=filter_form.cleaned_data["brands"]
-            )
-
-        if filter_form.cleaned_data["min_price"]:
-            items = items.filter(
-                price__gte=filter_form.cleaned_data["min_price"]
-            )
-
-        if filter_form.cleaned_data["max_price"]:
-            items = items.filter(
-                price__lte=filter_form.cleaned_data["max_price"]
-            )
+        filters = {
+            "category": "category__slug",
+            "brands": "brand__slug__in",
+            "min_price": "price__gte",
+            "max_price": "price__lte",
+        }
+        for key, value in filters.items():
+            if filter_form.cleaned_data[key]:
+                items = items.filter(
+                    **{value: filter_form.cleaned_data[key]}
+                )  # {category__slug="beds",..}
         last_selected_category = filter_form.cleaned_data["category"]
         last_selected_brands = filter_form.cleaned_data["brands"]
 

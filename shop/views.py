@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.db.models import Min, Max
 from .models import Category, Brand, Item
+from django.core.paginator import Paginator
+from .forms import TopBarForm, FilterForm
 
 
 def home(request):
@@ -13,48 +15,63 @@ def shop(request):
     items = Item.objects.all()
     categories = Category.objects.all()
     brands = Brand.objects.all()
-
+    last_selected_category = None
+    last_selected_brands = []
     min_price = None
     max_price = None
     smallest_price = items.aggregate(Min("price"))["price__min"]
     biggest_price = items.aggregate(Max("price"))["price__max"]
 
-    if request.method == "POST":
-        items, min_price, max_price = filter_items(request, items)
+    filter_form = FilterForm(request.GET)
+    if filter_form.is_valid():
+        filters = {
+            "category": "category__slug",
+            "brands": "brand__slug__in",
+            "min_price": "price__gte",
+            "max_price": "price__lte",
+        }
+        for key, value in filters.items():
+            if filter_form.cleaned_data[key]:
+                items = items.filter(
+                    **{value: filter_form.cleaned_data[key]}
+                )  # {category__slug="beds",..}
+        last_selected_category = filter_form.cleaned_data["category"]
+        last_selected_brands = filter_form.cleaned_data["brands"]
 
+    if request.method == "GET":
+        sort_by = request.GET.get("select", "newest").strip()
+        if sort_by == "price":
+            items = items.order_by("price")
+        elif sort_by == "newest":
+            items = items.order_by("-created")
+        elif sort_by == "popular":
+            items = items.order_by("-stars")
+
+    items_per_page = request.GET.get("items_per_page", 2)
+    paginator = Paginator(items, items_per_page)
+    page_number = request.GET.get("page")
+    paginated_items = paginator.get_page(page_number)
+    topbar_form = TopBarForm(request.GET)
     return render(
         request,
         "shop.html",
         context={
             "categories": categories,
             "brands": brands,
-            "items": items,
+            "items": paginated_items,
             "smallest_price": smallest_price,
             "biggest_price": biggest_price,
             "min_price": round(min_price) if min_price else smallest_price,
             "max_price": round(max_price) if max_price else biggest_price,
+            "items_per_page": items_per_page,
+            "total_items": paginator.count,
+            "sort_by": sort_by,
+            "filter_form": filter_form,
+            "topbar_form": topbar_form,
+            "last_selected_category": last_selected_category,
+            "last_selected_brands": last_selected_brands,
         },
     )
-
-
-def filter_items(request, items):
-    category = request.POST.get("category")
-    brand = request.POST.get("brand")
-    min_price = request.POST.get("min_price")
-    max_price = request.POST.get("max_price")
-
-    if min_price and max_price:
-        min_price = float(min_price)
-        max_price = float(max_price)
-
-    if category:
-        items = items.filter(category__name=category)
-    if brand:
-        items = items.filter(brand__name=brand)
-    if min_price and max_price:
-        items = items.filter(price__range=(min_price, max_price))
-
-    return items, min_price, max_price
 
 
 def item(request, slug, item_id):

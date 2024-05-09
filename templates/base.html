@@ -192,6 +192,7 @@
       success: function (json) {
         if (json) { 
           document.getElementById("cart-qty").innerHTML = json.qty;
+          updatePage() 
           console.log("Товар успішно додано у кошик");
         } else {
           console.log("Помилка: товар не було додано у кошик");

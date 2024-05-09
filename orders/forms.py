@@ -20,7 +20,7 @@ class OrderCreateForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "id": "first_name",
-                    "placeholder": "First Name",
+                    "placeholder": "Ім'я",
                     "required": True,
                 }
             ),
@@ -28,7 +28,7 @@ class OrderCreateForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "id": "last_name",
-                    "placeholder": "Last Name",
+                    "placeholder": "Прізвище",
                     "required": True,
                 }
             ),
@@ -36,30 +36,30 @@ class OrderCreateForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "id": "email",
-                    "placeholder": "Email",
+                    "placeholder": "Скринька",
                 }
             ),
             "region": forms.Select(
                 attrs={"class": "form-control w-100", "id": "region"},
                 choices=[
-                    ("vinnytsia", "Vinnytsia Region"),
-                    ("zhytomyr", "Zhytomyr Region"),
-                    ("ivanofrankivsk", "Ivano-Frankivsk Region"),
-                    ("kyivregion", "Kyiv Region"),
-                    ("lviv", "Lviv Region"),
-                    ("poltava", "Poltava Region"),
-                    ("ternopil", "Ternopil Region"),
-                    ("khmelnytskyi", "Khmelnytskyi Region"),
-                    ("cherkasy", "Cherkasy Region"),
-                    ("chernivtsi", "Chernivtsi Region"),
-                    ("chernihiv", "Chernihiv Region"),
+                    ("vinnytsia", "Вінницька область"),
+                    ("zhytomyr", "Житомирська область"),
+                    ("ivanofrankivsk", "Івано-Франківська область"),
+                    ("kyiv", "Київська область та місто"),
+                    ("lviv", "Львівська область"),
+                    ("poltava", "Полтавська область"),
+                    ("ternopil", "Тернопільська область"),
+                    ("khmelnytskyi", "Хмельницька область"),
+                    ("cherkasy", "Черкаська область"),
+                    ("chernivtsi", "Чернівецька область"),
+                    ("chernihiv", "Чернігівська область"),
                 ],
             ),
             "address": forms.TextInput(
                 attrs={
                     "class": "form-control mb-3",
                     "id": "street_address",
-                    "placeholder": "Address",
+                    "placeholder": "Адреса",
                     "required": True,
                 }
             ),
@@ -67,15 +67,14 @@ class OrderCreateForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "id": "zipCode",
-                    "placeholder": "Zip Code",
+                    "placeholder": "Поштовий індекс",
                 }
             ),
-            "phone_number": forms.NumberInput(
+            "phone_number": forms.TextInput(
                 attrs={
                     "class": "form-control",
                     "id": "phone_number",
-                    "placeholder": "Phone No",
-                    "min": 0,
+                    "placeholder": "Номер телефону",
                 }
             ),
             "comment": forms.Textarea(
@@ -84,7 +83,7 @@ class OrderCreateForm(forms.ModelForm):
                     "id": "comment",
                     "cols": 30,
                     "rows": 10,
-                    "placeholder": "Leave a comment about your order",
+                    "placeholder": "Залиште коментар до замовлення",
                 }
             ),
         }

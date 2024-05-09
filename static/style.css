@@ -47,11 +47,6 @@
     color: #959595;
 }
 
-.scrollable-select {
-     margin-bottom: 10px;
-     margin-top: 10px;
-}
-
 .message-in-middle {
     display: flex;
     flex-direction: column;

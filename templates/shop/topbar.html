@@ -5,17 +5,17 @@
           >
             <!-- Total Products -->
             <div class="total-products">
-                <p>Showing {{ items.start_index }}-{{ items.end_index }} of {{ total_items }}</p>
+                <p>Всього {{ items.start_index }}-{{ items.end_index }} із {{ total_items }}</p>
             </div>
             <!-- Sorting -->
             <form method="get">
             <div class="product-sorting d-flex">
               <div class="sort-by-date d-flex align-items-center mr-15">
-                  <p>Sort by</p>
+                  <p>Сортувати</p>
                   {{ topbar_form.select }}
               </div>
               <div class="view-product d-flex align-items-center">
-                  <p>View</p>
+                  <p>Показувати</p>
                   {{ topbar_form.items_per_page }}
               </div>
               <input type="hidden" name="category" value="{{ last_selected_category }}">

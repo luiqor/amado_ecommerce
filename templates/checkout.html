@@ -8,19 +8,33 @@
 						{% include 'checkout/form_inputs.html'%}
 						<div class="col-12 col-lg-4">
 							<div class="cart-summary">
-								<h5>Cart Total</h5>
+								<h5>Підсумок</h5>
 								<ul class="summary-table">
-									<li><span>total:</span> <span>{{total_price }} грн</span></li>
+									<li><span>Всього:</span> <span>{{total_price }} грн</span></li>
 								</ul>
 
 								<div class="cart-btn mt-100">
 									{% csrf_token %}
-									<button type="submit" class="btn amado-btn w-100">Checkout</button>
+									<button type="submit" class="btn amado-btn w-100" {% if total_price == 0 %}disabled{% endif %}>Замовити</button>
 								</div>
+								{% if total_price == 0 %}
+									<div class="alert alert-warning">
+										<strong>Ваш кошик порожній. Будь ласка, додайте предмети перед формуванням замовлення.</strong>
+									</div>
+								{% endif %}
+								{% if form.errors %}
+									<div class="alert alert-danger">
+										<h4>Будь ласка, виправте формат:</h4>
+										{% for field, errors in form.errors.items %}
+											<p><strong>{{ field }}</strong>: {{ errors|join:", " }}</p>
+										{% endfor %}
+									</div>
+								{% endif %}
 							</div>
 						</div>
 					</div>
 					</form>
 				</div>
 			</div>
+
 {% endblock %}

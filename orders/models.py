@@ -21,6 +21,9 @@ class Order(models.Model):
         ordering = ("-created",)
         verbose_name_plural = "orders"
 
+    def __str__(self):
+        return f"Order №{self.id}"
+
 
 class OrderItem(models.Model):
     order_id = models.ForeignKey(

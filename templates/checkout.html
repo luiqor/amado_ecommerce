@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="cart-table-area section-padding-100-0">
+				<div class="container-fluid">
+					<form action="#" method="post">
+					<div class="row">
+						{% include 'checkout/form_inputs.html'%}
+						<div class="col-12 col-lg-4">
+							<div class="cart-summary">
+								<h5>Cart Total</h5>
+								<ul class="summary-table">
+									<li><span>total:</span> <span>{{total_price }} грн</span></li>
+								</ul>
+
+								<div class="cart-btn mt-100">
+									{% csrf_token %}
+									<button type="submit" class="btn amado-btn w-100">Checkout</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+{% endblock %}

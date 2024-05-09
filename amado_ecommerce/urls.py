@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from shop.views import home, shop, item
+from orders.views import checkout, order_success
 
 
 urlpatterns = [
@@ -28,6 +29,8 @@ urlpatterns = [
     path("shop/", shop, name="shop"),
     path("<slug:slug>/<int:item_id>", item, name="item"),
     path("cart/", include("cart.urls", namespace="cart")),
+    path("checkout/", checkout, name="checkout"),
+    path("order_success/", order_success, name="order_success"),
 ]
 
 

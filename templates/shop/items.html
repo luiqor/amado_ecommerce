@@ -36,14 +36,18 @@
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                 {% endfor %}
           </div>
+          
             <div class="cart">
-              <a
-                href="cart.html"
-                data-toggle="tooltip"
-                data-placement="left"
-                title="Add to Cart"
-                ><img src="{% static 'img/core-img/cart.png' %}" alt="Cart"
-              /></a>
+              <button
+              type="submit"
+              name="addtocart"
+              value="{{item.id}}"
+              class="btn"
+              id="add-button"
+            >
+              <img src="{% static 'img/core-img/cart.png' %}" alt="Cart"
+              />
+            </button>
             </div>
           </div>
         </div>

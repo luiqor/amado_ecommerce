@@ -46,3 +46,16 @@
     margin-bottom: 25px;
     color: #959595;
 }
+
+.message-in-middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 40px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}

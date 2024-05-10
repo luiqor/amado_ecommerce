@@ -175,10 +175,8 @@
   $(document).on("click", "#add-button", function (e) {
     e.preventDefault();
     var addToCartUrl = '{% url "cart:cart_add" %}';
-    console.log(addToCartUrl)
     var itemid = $(this).val();
     var itemqty = $("#qty").val();
-    console.log(itemid, itemqty)
     $.ajax({
       type: "POST",
       url: addToCartUrl,
@@ -192,7 +190,6 @@
         if (json) { 
           document.getElementById("cart-qty").innerHTML = json.qty;
           updatePage() 
-          console.log("Товар успішно додано у кошик");
         } else {
           console.log("Помилка: товар не було додано у кошик");
         }
@@ -207,9 +204,7 @@
   $(document).on("click", ".update-button", function (e) {
     e.preventDefault();
     var prodid = $(this).data("index");
-    console.log(prodid);
     var itemQty = $("#qty-" + prodid).val();
-    console.log("Item Quantity:", itemQty);
     $.ajax({
       type: "POST",
       url: '{% url "cart:cart_update" %}',

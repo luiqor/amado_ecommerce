@@ -13,8 +13,6 @@ def home(request):
 
 def shop(request):
     items = Item.objects.all()
-    categories = Category.objects.all()
-    brands = Brand.objects.all()
     last_selected_category = None
     last_selected_brands = []
     min_price = None
@@ -23,22 +21,23 @@ def shop(request):
     biggest_price = items.aggregate(Max("price"))["price__max"]
 
     filter_form = FilterForm(request.GET)
-    if filter_form.is_valid():
-        filters = {
-            "category": "category__slug",
-            "brands": "brand__slug__in",
-            "min_price": "price__gte",
-            "max_price": "price__lte",
-        }
-        for key, value in filters.items():
-            if filter_form.cleaned_data[key]:
-                items = items.filter(
-                    **{value: filter_form.cleaned_data[key]}
-                )  # {category__slug="beds",..}
-        last_selected_category = filter_form.cleaned_data["category"]
-        last_selected_brands = filter_form.cleaned_data["brands"]
-
+    topbar_form = TopBarForm(request.GET)
     if request.method == "GET":
+        if filter_form.is_valid():
+            filters = {
+                "category": "category__slug",
+                "brands": "brand__slug__in",
+                "min_price": "price__gte",
+                "max_price": "price__lte",
+            }
+            for key, value in filters.items():
+                if filter_form.cleaned_data[key]:
+                    items = items.filter(
+                        **{value: filter_form.cleaned_data[key]}
+                    )  # {category__slug="beds",..}
+            last_selected_category = filter_form.cleaned_data["category"]
+            last_selected_brands = filter_form.cleaned_data["brands"]
+
         sort_by = request.GET.get("select", "newest").strip()
         if sort_by == "price":
             items = items.order_by("price")
@@ -51,13 +50,11 @@ def shop(request):
     paginator = Paginator(items, items_per_page)
     page_number = request.GET.get("page")
     paginated_items = paginator.get_page(page_number)
-    topbar_form = TopBarForm(request.GET)
+
     return render(
         request,
         "shop.html",
         context={
-            "categories": categories,
-            "brands": brands,
             "items": paginated_items,
             "smallest_price": smallest_price,
             "biggest_price": biggest_price,

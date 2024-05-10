@@ -52,12 +52,10 @@ class Cart:
 
         if item_id in self.cart:
             del self.cart[item_id]
-            print(item_id)
             self.save()
-
-    def save(self):
-        self.session.modified = True
 
     def clear(self):
         self.session["skey"] = {}
+
+    def save(self):
         self.session.modified = True

@@ -80,6 +80,7 @@
           {% endif %}{% endfor %}
 
           <!-- Add to Cart Form -->
+          {% if item.in_stock %}
           <form class="cart clearfix" method="post">
             <div class="cart-btn d-flex mb-50">
               <p>Qty</p>
@@ -105,7 +106,7 @@
                 </span>
               </div>
             </div>
-            {% if item.in_stock %}
+
             <button
               type="submit"
               name="addtocart"
@@ -115,8 +116,8 @@
             >
               Додати у кошик
             </button>
-            {% else %} {% endif %}
           </form>
+          {% else %} {% endif %}
         </div>
       </div>
     </div>

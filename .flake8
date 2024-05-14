@@ -1,0 +1,2 @@
+[flake8]
+exclude = migrations,settings.py,.venv,manage.py,urls.py,tests.py,urls.py,apps.py,admin.py

@@ -3,6 +3,10 @@ from .models import Order
 
 
 class OrderCreateForm(forms.ModelForm):
+    """Form for placing an order based on Order model.
+    If the form is valid, create an order and save it to the database.
+    """
+
     class Meta:
         model = Order
         fields = [

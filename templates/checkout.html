@@ -24,9 +24,9 @@
 								{% endif %}
 								{% if form.errors %}
 									<div class="alert alert-danger">
-										<h4>Будь ласка, виправте формат:</h4>
+										<h4>Помилка:</h4>
 										{% for field, errors in form.errors.items %}
-											<p><strong>{{ field }}</strong>: {{ errors|join:", " }}</p>
+											<p>{{ errors|join:", " }}</p>
 										{% endfor %}
 									</div>
 								{% endif %}

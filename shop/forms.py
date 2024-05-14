@@ -3,6 +3,8 @@ from .models import Category, Brand
 
 
 class FilterForm(forms.Form):
+    """Form for filtering items by category, brand, and price."""
+
     category = forms.ChoiceField(
         choices=[],
         required=False,
@@ -31,6 +33,10 @@ class FilterForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize the form with choices for categories and brands.
+        Choices are dynamically generated from the database.
+        """
         super().__init__(*args, **kwargs)
 
         self.fields["category"].choices = [
@@ -43,7 +49,9 @@ class FilterForm(forms.Form):
 
 
 class TopBarForm(forms.Form):
-    select = forms.ChoiceField(
+    """Form for sorting items by price, newest, and popular."""
+
+    sort_by = forms.ChoiceField(
         choices=[
             ("price", "Price"),
             ("newest", "Newest"),

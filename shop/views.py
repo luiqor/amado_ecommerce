@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Min, Max
-from .models import Category, Brand, Item
+from .models import Item
 from django.core.paginator import Paginator
 from .forms import TopBarForm, FilterForm
 
@@ -12,6 +12,21 @@ def home(request):
 
 
 def shop(request):
+    """
+    Display all items with filtering, sorting options and pagination.
+    Use FilterForm to filter items by category, brand, and price.
+    Use TopBarForm to sort items and set items per page. Sets min_price
+    and max_price for price range slider based on the user's selection.
+    If the user doesn't select any price range, the default values are
+    the smallest and biggest prices of the items from db.
+    Args:
+        request: HttpRequest object
+    Returns:
+        HttpResponse object with rendered shop.html template
+        Context: items, smallest_price, biggest_price, min_price, max_price,
+        items_per_page, total_items, sort_by, filter_form, topbar_form,
+        last_selected_category, last_selected_brands
+    """
     items = Item.objects.all()
     last_selected_category = None
     last_selected_brands = []
@@ -38,7 +53,7 @@ def shop(request):
             last_selected_category = filter_form.cleaned_data["category"]
             last_selected_brands = filter_form.cleaned_data["brands"]
 
-        sort_by = request.GET.get("select", "newest").strip()
+        sort_by = request.GET.get("sort_by", "price").strip()
         if sort_by == "price":
             items = items.order_by("price")
         elif sort_by == "newest":

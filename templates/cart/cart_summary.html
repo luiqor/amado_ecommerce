@@ -20,6 +20,12 @@
             </thead>
             <tbody>
               {% for item_cart in cart %} {% with item=item_cart.item %}
+              <input type="hidden" id="available-{{ item.id }}" 
+                      value="{{ item_cart.available }}">
+              </input>
+              <input type="hidden" id="name-{{ item.id }}"
+                      value="{{ item.name }}">
+              </input>
               <tr data-index="{{item.id}}" class="this-item">
                 <td class="cart_product_img">
                   <a href="{% url 'item' slug=item.slug item_id=item.id %}"
@@ -76,9 +82,13 @@
                     >
                       Delete
                     </button>
+                    {% if cart_messages.item_cart.item.id %}
+                        <p>{{ cart_messages.item_cart.item.id }}</p>
+                    {% endif %}
                   </div>
                 </td>
               </tr>
+             
               {% endwith %} {% endfor %}
             </tbody>
           </table>

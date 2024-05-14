@@ -205,6 +205,20 @@
     e.preventDefault();
     var prodid = $(this).data("index");
     var itemQty = $("#qty-" + prodid).val();
+    var itemA = $("#available-" + prodid).val();
+    var itemName= $("#name-" + prodid).val();
+
+    console.log("Item Quantity:", itemQty);
+    console.log("Available Quantity:", itemA);
+
+   if (parseInt(itemQty) > parseInt(itemA)) {
+        alert(`Доступно для покупки лише ${itemA} одиниць товару "${itemName}"`);
+        while (parseInt(itemQty) > parseInt(itemA)) {
+            decreaseQuantityConcret(prodid);
+            itemQty = $("#qty-" + prodid).val(); 
+        }
+      }
+
     $.ajax({
       type: "POST",
       url: '{% url "cart:cart_update" %}',
@@ -217,7 +231,7 @@
       success: function (json) {
         console.log("Success:", json);
         document.getElementById("cart-qty").innerHTML = json.qty;
-        document.getElementById("subtotal").innerHTML = json.subtotal;
+        document.getElementById("subtotal").innerHTML = json.subtotal+" Грн";
       },
       error: function (xhr, errmsg, err) {
         console.log("Error:", errmsg);

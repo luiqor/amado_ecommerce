@@ -7,6 +7,7 @@ from shop.models import Item
 
 def cart_summary(request):
     cart = Cart(request)
+    cart.check_item_availability()
     return render(request, "cart/cart_summary.html", {"cart": cart})
 
 

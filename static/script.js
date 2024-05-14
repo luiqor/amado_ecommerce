@@ -58,4 +58,3 @@ function updateQuantityConcret(itemId) {
         console.log("Нове значення для елемента з id", itemId + ":", qty);
     }
 }
-

@@ -109,8 +109,8 @@ def cart(items_data):
     item1, item2, *_ = items_data
 
     session['skey'] = {
-        str(item1.id): {'qty': 5},
-        str(item2.id): {'qty': 2},
+        str(item1.id): {'qty': 5, 'price': item1.price},
+        str(item2.id): {'qty': 2, 'price': item2.price},
     }
 
     request = RequestFactory().post('/dummy-url')

@@ -36,7 +36,7 @@
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                 {% endfor %}
           </div>
-          
+          {% if item.in_stock %}
             <div class="cart">
               <button
               type="submit"
@@ -49,6 +49,7 @@
               />
             </button>
             </div>
+            {% else %} {% endif %}
           </div>
         </div>
       </div>

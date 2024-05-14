@@ -1,5 +1,4 @@
 from decimal import Decimal
-
 from shop.models import Item
 
 
@@ -40,6 +39,15 @@ class Cart:
         return sum(
             Decimal(item["price"]) * item["qty"] for item in self.cart.values()
         )
+
+    def check_item_availability(self):
+        for item_id, item_data in self.cart.items():
+           
+            item = Item.objects.get(id=item_id)
+            
+            item_data["available"] = item.quantity
+               
+        return True
 
     def update(self, item, qty):
         item_id = str(item)

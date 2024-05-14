@@ -6,12 +6,19 @@ from django.core.validators import (
 
 
 class Order(models.Model):
+    """
+    Model for storing order information.
+    Contains validation for phone number and zip code.
+    """
+
     phone_regex = RegexValidator(
         regex=r"^\+?3?8?\d{10}$",
-        message="Має бути у форматі: '0501112233' з +38 за бажанням.",
+        message="Номер телефону має бути у форматі: '0501112233'"
+        " з +38 на початку за бажанням.",
     )
+
     zip_code_regex = RegexValidator(
-        r"^\d{5}$", "Введіть 5 цифр вашого поштового індексу."
+        r"^\d{5}$", "Поштовий індекс має містити 5 символів."
     )
 
     firstname = models.CharField(max_length=50)
@@ -37,6 +44,7 @@ class Order(models.Model):
         verbose_name_plural = "orders"
 
     def __str__(self):
+        """Return the order number and customer's name."""
         return f"№{self.id} - {self.lastname} {self.firstname}"
 
 
@@ -51,6 +59,7 @@ class OrderItem(models.Model):
     buy_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def get_cost(self):
+        """Return the total cost of items depending on the quantity."""
         return self.buy_price * self.item_quantity
 
     class Meta:

@@ -104,7 +104,7 @@ def items_data(db, categories, brands):
 def cart(items_data):
     """Fixture for creating a Cart instance with specific items."""
     session = SessionBase()
-    session['_auth_user_id'] = 1  # You may need to set this depending on your session data
+    session['_auth_user_id'] = 1
 
     item1, item2, *_ = items_data
 
@@ -113,7 +113,7 @@ def cart(items_data):
         str(item2.id): {'qty': 2},
     }
 
-    request = RequestFactory().post('/dummy-url')  # You can use any dummy URL here
+    request = RequestFactory().post('/dummy-url')
     request.session = session
 
     return Cart(request)

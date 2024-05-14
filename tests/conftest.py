@@ -3,13 +3,28 @@ from shop.models import Category, Brand, Item
 
 
 @pytest.fixture
-def items_data(db):
-    """Create items with categories and brands for testing purposes."""
+def categories(db):
+    """Create categories for testing purposes."""
     category1 = Category.objects.create(name="Category1", slug="category1")
     category2 = Category.objects.create(name="Category2", slug="category2")
     category3 = Category.objects.create(name="Category3", slug="category3")
+    return category1, category2, category3
+
+
+@pytest.fixture
+def brands(db):
+    """Create brands for testing purposes."""
     brand1 = Brand.objects.create(name="Brand1", slug="brand1")
     brand2 = Brand.objects.create(name="Brand2", slug="brand2")
+    return brand1, brand2
+
+
+@pytest.fixture
+def items_data(db, categories, brands):
+    """Create items using categories and brands fixtures for
+    testing purposes."""
+    category1, category2, category3 = categories
+    brand1, brand2 = brands
 
     item_image = "item_image.jpg"
 

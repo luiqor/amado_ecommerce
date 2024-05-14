@@ -1,5 +1,8 @@
 import pytest
 from shop.models import Category, Brand, Item
+from cart.cart import Cart
+from django.contrib.sessions.backends.base import SessionBase
+from django.test import RequestFactory
 
 
 @pytest.fixture
@@ -95,3 +98,22 @@ def items_data(db, categories, brands):
         brand=brand1,
     )
     return [item1, item2, item3, item4, item5, item6]
+
+
+@pytest.fixture
+def cart(items_data):
+    """Fixture for creating a Cart instance with specific items."""
+    session = SessionBase()
+    session['_auth_user_id'] = 1  # You may need to set this depending on your session data
+
+    item1, item2, *_ = items_data
+
+    session['skey'] = {
+        str(item1.id): {'qty': 5},
+        str(item2.id): {'qty': 2},
+    }
+
+    request = RequestFactory().post('/dummy-url')  # You can use any dummy URL here
+    request.session = session
+
+    return Cart(request)

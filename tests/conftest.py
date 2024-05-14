@@ -28,7 +28,7 @@ def items_data(db, categories, brands):
 
     item_image = "item_image.jpg"
 
-    Item.objects.create(
+    item1 = Item.objects.create(
         name="Item1",
         slug="item1",
         price=10.00,
@@ -39,7 +39,7 @@ def items_data(db, categories, brands):
         category=category1,
         brand=brand1,
     )
-    Item.objects.create(
+    item2 = Item.objects.create(
         name="Item2",
         slug="item2",
         price=20.00,
@@ -50,7 +50,7 @@ def items_data(db, categories, brands):
         category=category1,
         brand=brand2,
     )
-    Item.objects.create(
+    item3 = Item.objects.create(
         name="Item3",
         slug="item3",
         price=15.00,
@@ -61,7 +61,7 @@ def items_data(db, categories, brands):
         category=category2,
         brand=brand1,
     )
-    Item.objects.create(
+    item4 = Item.objects.create(
         name="Item4",
         slug="item4",
         price=25.00,
@@ -72,7 +72,7 @@ def items_data(db, categories, brands):
         category=category2,
         brand=brand2,
     )
-    Item.objects.create(
+    item5 = Item.objects.create(
         name="Item5",
         slug="item5",
         price=30.00,
@@ -83,7 +83,7 @@ def items_data(db, categories, brands):
         category=category3,
         brand=brand2,
     )
-    Item.objects.create(
+    item6 = Item.objects.create(
         name="Item6",
         slug="item6",
         price=35.00,
@@ -94,3 +94,4 @@ def items_data(db, categories, brands):
         category=category2,
         brand=brand1,
     )
+    return [item1, item2, item3, item4, item5, item6]

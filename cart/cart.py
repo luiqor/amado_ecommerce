@@ -42,11 +42,11 @@ class Cart:
 
     def check_item_availability(self):
         for item_id, item_data in self.cart.items():
-           
+
             item = Item.objects.get(id=item_id)
-            
+
             item_data["available"] = item.quantity
-               
+
         return True
 
     def update(self, item, qty):

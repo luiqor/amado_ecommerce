@@ -49,6 +49,8 @@ def checkout(request):
                     buy_price=order_item["price"],
                 )
                 item.quantity -= order_item["qty"]
+                if item.quantity == 0:
+                    item.in_stock = False
                 item.save()
             cart.clear()
             return redirect("order_success")

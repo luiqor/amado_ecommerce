@@ -171,6 +171,9 @@
 
 
 <script>
+  
+  
+
   // Add Item
   $(document).on("click", "#add-button", function (e) {
     e.preventDefault();
@@ -200,6 +203,7 @@
     });
   });
 
+  
   // Update Item
   $(document).on("click", ".update-button", function (e) {
     e.preventDefault();
@@ -261,4 +265,14 @@
       error: function (xhr, errmsg, err) {}
     });
   })
+
+  const av = document.querySelector('#item-available').value;
+  const ch = document.querySelector('#item-qty-in').value;
+
+  if (parseInt(av) == parseInt(ch)) {
+      const btn = document.querySelector('[name="addtocart"]');
+      btn.disabled = true;
+      btn.textContent = "Додано максимум";  
+  }
+
 </script>

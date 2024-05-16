@@ -73,7 +73,13 @@
 
             <span id="item-qty-status">
               {% for item_cart in cart %} {% if item_cart.item.id == item.id %}
-              {{ item_cart.qty }} {% endif %} {% endfor %}
+              {{ item_cart.qty }} 
+              <input type="hidden" value="{{  item_cart.qty }}" id="item-qty-in">
+              {% with cart.check_item_availability as is_available %}
+              <input type="hidden" value="{{item_cart.available}}" id="item-available">
+              </input>
+              {% endwith %}
+              {% endif %} {% endfor %}
             </span>
             <div class="short_overview">&nbsp; шт</div>
           </div>
@@ -82,30 +88,6 @@
           <!-- Add to Cart Form -->
           {% if item.in_stock %}
           <form class="cart clearfix" method="post">
-            <div class="cart-btn d-flex mb-50">
-              <p>Qty</p>
-
-              <div class="quantity not_added_to_cart">
-                <span class="qty-minus" onclick="decreaseQuantity()"
-                  ><i class="fa fa-caret-down" aria-hidden="true"></i
-                ></span>
-                <input
-                  type="number"
-                  class="qty-text"
-                  id="qty"
-                  step="1"
-                  min="1"
-                  max="10"
-                  name="quantity"
-                  oninput="updateQuantity()"
-                  value="1"
-                  readonly
-                />
-                <span class="qty-plus" onclick="increaseQuantity()">
-                  <i class="fa fa-caret-up" aria-hidden="true"> </i>
-                </span>
-              </div>
-            </div>
 
             <button
               type="submit"

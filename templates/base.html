@@ -153,8 +153,7 @@
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-    {% comment %} <script src="{% static "js/jquery/jquery-2.2.4.min.js" %}"></script> {% endcomment %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static "js/jquery/jquery-2.2.4.min.js" %}"></script> 
     <!-- Popper js -->
     <script src="{% static "js/popper.min.js" %}"></script>
     <!-- Bootstrap js -->
@@ -165,15 +164,13 @@
     <script src="{% static "js/active.js" %}"></script>
     <!-- Our js -->
     <script src="{% static "script.js" %}"></script>
+
   </body>
 </html>
 
 
 
 <script>
-  
-  
-
   // Add Item
   $(document).on("click", "#add-button", function (e) {
     e.preventDefault();
@@ -266,13 +263,23 @@
     });
   })
 
-  const av = document.querySelector('#item-available').value;
-  const ch = document.querySelector('#item-qty-in').value;
+  const wrappers = document.querySelectorAll('[name="addtocart"]');
+  console.log(wrappers);
 
-  if (parseInt(av) == parseInt(ch)) {
-      const btn = document.querySelector('[name="addtocart"]');
-      btn.disabled = true;
-      btn.textContent = "Додано максимум";  
-  }
+  let avElements = document.querySelectorAll('#item-available');
+  let chElements = document.querySelectorAll('#item-qty-in');
+  for (let i = 0; i < avElements.length; i++) {
+    let av = avElements[i].value;
+    let ch = chElements[i].value;
 
+    console.log("av: " + av);
+    console.log("ch: " + ch);
+
+    if (parseInt(av) == parseInt(ch)) {
+        const btn = wrappers[i];
+        btn.disabled = true;
+        btn.textContent = "Додано максимум";  
+        console.log("Button disabled for item " + i);
+    }
+}
 </script>

@@ -6,12 +6,31 @@ from shop.models import Item
 
 
 def cart_summary(request):
+    """
+    Renders the cart summary page.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered cart summary page.
+    """
     cart = Cart(request)
     cart.check_item_availability()
     return render(request, "cart/cart_summary.html", {"cart": cart})
 
 
 def cart_add(request):
+    """
+    Adds an item to the cart.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing the
+        updated quantity in the cart.
+    """
     cart = Cart(request)
     if request.method == "POST" and request.POST.get("action") == "post":
         item_id = int(request.POST.get("itemid"))
@@ -31,6 +50,16 @@ def cart_add(request):
 
 
 def cart_update(request):
+    """
+    Updates the quantity of an item in the cart.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing the updated
+        cart quantity and subtotal.
+    """
     cart = Cart(request)
     if request.POST.get("action") == "post":
         item_id = int(request.POST.get("itemid"))
@@ -44,6 +73,16 @@ def cart_update(request):
 
 
 def cart_delete(request):
+    """
+    Deletes an item from the cart.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing the
+        updated cart quantity and subtotal.
+    """
     cart = Cart(request)
     if request.POST.get("action") == "post":
         item_id = int(request.POST.get("itemid"))

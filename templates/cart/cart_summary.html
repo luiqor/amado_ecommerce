@@ -1,0 +1,115 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="cart-table-area section-padding-100">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-9">
+        <div class="cart-title mt-50">
+          <h2>Кошик</h2>
+        </div>
+
+        <div class="cart-table clearfix">
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Назва</th>
+                <th>Ціна</th>
+                <th>Кількість</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item_cart in cart %} {% with item=item_cart.item %}
+              <input type="hidden" id="available-{{ item.id }}" 
+                      value="{{ item_cart.available }}">
+              </input>
+              <input type="hidden" id="name-{{ item.id }}"
+                      value="{{ item.name }}">
+              </input>
+              <tr data-index="{{item.id}}" class="this-item">
+                <td class="cart_product_img">
+                  <a href="{% url 'item' slug=item.slug item_id=item.id %}"
+                    ><img src="{{ item.photo.url }}" alt="Product"
+                  /></a>
+                </td>
+                <td class="cart_product_desc">
+                  <h5>{{ item.name }}</h5>
+                </td>
+                <td class="price">
+                  <span>{{ item.price }} грн</span>
+                </td>
+                <td class="qty" id="select{{item.id}}">
+                  <div class="qty-btn d-flex">
+                    <div class="quantity">
+                      <span
+                        class="qty-minus"
+                        onclick="decreaseQuantityConcret('{{ item.id }}')"
+                      >
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                      </span>
+                      <input
+                        type="number"
+                        class="qty-text"
+                        id="qty-{{ item.id }}"
+                        step="1"
+                        min="1"
+                        max="300"
+                        name="quantity"
+                        oninput="updateQuantityConcret('{{ item.id }}')"
+                        value="{{ item_cart.qty }}"
+                        readonly
+                      />
+                      <span
+                        class="qty-plus"
+                        onclick="increaseQuantityConcret('{{ item.id }}')"
+                      >
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      id="update-button"
+                      data-index="{{item.id}}"
+                      class="btn btn-outline-secondary btn-sm update-button"
+                    >
+                      Update
+                    </button>
+                    <button
+                      type="button"
+                      id="delete-button"
+                      data-index="{{item.id}}"
+                      class="btn btn-outline-secondary btn-sm delete-button"
+                    >
+                      Delete
+                    </button>
+                    {% if cart_messages.item_cart.item.id %}
+                        <p>{{ cart_messages.item_cart.item.id }}</p>
+                    {% endif %}
+                  </div>
+                </td>
+              </tr>
+             
+              {% endwith %} {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-11 col-lg-3">
+        <div class="cart-summary">
+          <h5>Підсумок</h5>
+          <ul class="summary-table">
+            <li>
+              <span>Всього:</span>
+              <span id="subtotal">{{cart.get_total_price}} грн</span>
+            </li>
+          </ul>
+          <div class="cart-btn mt-100">
+            <a href="/checkout" class="btn amado-btn w-100">Замовити</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

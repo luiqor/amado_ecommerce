@@ -1,0 +1,285 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>{{ title }} Amado Furniture</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}" />
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="{% static 'css/core-style.css' %}" /> <link
+    rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+
+  <body>
+    <!-- ##### Main Content Wrapper Start ##### -->
+    <div class="main-content-wrapper d-flex clearfix">
+      <!-- Mobile Nav (max width 767px)-->
+      <div class="mobile-nav">
+        <!-- Navbar Brand -->
+        <div class="amado-navbar-brand">
+          <a href="index.html"><img src="{% static 'img/core-img/logo.png' %}" alt="Logo"></a>
+        </div>
+        <!-- Navbar Toggler -->
+        <div class="amado-navbar-toggler">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <!-- Header Area Start -->
+      <header class="header-area clearfix">
+        <!-- Close Icon -->
+        <div class="nav-close">
+          <i class="fa fa-close" aria-hidden="true"></i>
+        </div>
+        <!-- Logo -->
+        <div class="logo">
+          <a href="/"><img src="{% static 'img/core-img/logo.png' %}" alt="Logo"></a>
+        </div>
+        <!-- Amado Nav -->
+        <nav class="amado-nav mb-100">
+          <ul>
+            <li><a href="/">Головна сторінка</a></li>
+            <li><a href="/shop">Магазин</a></li>
+          </ul>
+        </nav>
+
+        <!-- Cart Menu -->
+       <div class="cart-fav-search mb-100">
+          <a href="{% url 'cart:cart_summary' %}" class="cart-nav">
+              <img src="{% static 'img/core-img/cart.png' %}" alt="Cart"> Кошик 
+              <span id="cart-qty">
+                  {% with total_qty=cart|length %}
+                      {% if total_qty > 0 %}
+                          {{ total_qty }}
+                      {% else %}
+                          0
+                      {% endif %}
+                  {% endwith %}
+              </span>
+          </a>
+      </div>
+        <!-- Social Button -->
+        <div class="social-info d-flex justify-content-between">
+          <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+          <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+          <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div>
+      </header>
+      <!-- Header Area End -->
+
+      <!-- components inside base.html -->
+	  {% block content %}
+	  {% endblock %}
+    </div>
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer_area clearfix">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Single Widget Area -->
+          <div class="col-12 col-lg-4">
+            <div class="single_widget_area">
+              <!-- Logo -->
+              <div class="footer-logo mr-50">
+                <a href="index.html"
+                  ><img src="{% static 'img/core-img/logo2.png' %}" alt="Logo 2"></a>
+              </div>
+              <!-- Copywrite Text -->
+              <p class="copywrite">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                All rights reserved | This template is made with
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                <a href="https://colorlib.com" target="_blank">Colorlib</a> &
+                Re-distributed by
+                <a href="https://themewagon.com/" target="_blank">Themewagon</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              </p>
+            </div>
+          </div>
+          <!-- Single Widget Area -->
+          <div class="col-12 col-lg-8">
+            <div class="single_widget_area">
+              <!-- Footer Menu -->
+              <div class="footer_menu">
+                <nav class="navbar navbar-expand-lg justify-content-end">
+                  <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#footerNavContent"
+                    aria-controls="footerNavContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                  >
+                    <i class="fa fa-bars"></i>
+                  </button>
+                  <div class="collapse navbar-collapse" id="footerNavContent">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="/index">Головна сторінка</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/shop">Магазин</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/cart">Кошик</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+    <script src="{% static "js/jquery/jquery-2.2.4.min.js" %}"></script> 
+    <!-- Popper js -->
+    <script src="{% static "js/popper.min.js" %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <!-- Plugins js -->
+    <script src="{% static "js/plugins.js" %}"></script>
+    <!-- Active js -->
+    <script src="{% static "js/active.js" %}"></script>
+    <!-- Our js -->
+    <script src="{% static "script.js" %}"></script>
+
+  </body>
+</html>
+
+
+
+<script>
+  // Add Item
+  $(document).on("click", "#add-button", function (e) {
+    e.preventDefault();
+    var addToCartUrl = '{% url "cart:cart_add" %}';
+    var itemid = $(this).val();
+    var itemqty = $("#qty").val();
+    $.ajax({
+      type: "POST",
+      url: addToCartUrl,
+      data: {
+        itemid: itemid,
+        itemqty: itemqty,  
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        action: "post",
+      },
+      success: function (json) {
+        if (json) { 
+          document.getElementById("cart-qty").innerHTML = json.qty;
+          updatePage() 
+        } else {
+          console.log("Помилка: товар не було додано у кошик");
+        }
+      },
+      error: function (xhr, errmsg, err) {
+        console.log("Помилка: не вдалося відправити запит на сервер");
+      },
+    });
+  });
+
+  
+  // Update Item
+  $(document).on("click", ".update-button", function (e) {
+    e.preventDefault();
+    var prodid = $(this).data("index");
+    var itemQty = $("#qty-" + prodid).val();
+    var itemA = $("#available-" + prodid).val();
+    var itemName= $("#name-" + prodid).val();
+
+    console.log("Item Quantity:", itemQty);
+    console.log("Available Quantity:", itemA);
+
+   if (parseInt(itemQty) > parseInt(itemA)) {
+        alert(`Доступно для покупки лише ${itemA} одиниць товару "${itemName}"`);
+        while (parseInt(itemQty) > parseInt(itemA)) {
+            decreaseQuantityConcret(prodid);
+            itemQty = $("#qty-" + prodid).val(); 
+        }
+      }
+
+    $.ajax({
+      type: "POST",
+      url: '{% url "cart:cart_update" %}',
+      data: {
+        itemid: prodid,
+        itemqty: itemQty,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+      success: function (json) {
+        console.log("Success:", json);
+        document.getElementById("cart-qty").innerHTML = json.qty;
+        document.getElementById("subtotal").innerHTML = json.subtotal+" Грн";
+      },
+      error: function (xhr, errmsg, err) {
+        console.log("Error:", errmsg);
+      },
+    });
+  });
+
+   // Delete Item
+  $(document).on('click', '.delete-button', function (e) {
+    e.preventDefault();
+    var prodid = $(this).data("index");
+    console.log("id", prodid)
+    $.ajax({
+      type: 'POST',
+      url: '{% url "cart:cart_delete" %}',
+      data: {
+       itemid: $(this).data('index'),
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: 'post'
+      },
+      success: function (json) {
+        $('.this-item[data-index="' + prodid + '"]').remove();
+        document.getElementById("cart-qty").innerHTML = json.qty
+        document.getElementById("subtotal").innerHTML = json.subtotal;
+        
+      },
+      error: function (xhr, errmsg, err) {}
+    });
+  })
+
+  const wrappers = document.querySelectorAll('[name="addtocart"]');
+  console.log(wrappers);
+
+  let avElements = document.querySelectorAll('#item-available');
+  let chElements = document.querySelectorAll('#item-qty-in');
+  for (let i = 0; i < avElements.length; i++) {
+    let av = avElements[i].value;
+    let ch = chElements[i].value;
+
+    console.log("av: " + av);
+    console.log("ch: " + ch);
+
+    if (parseInt(av) == parseInt(ch)) {
+        const btn = wrappers[i];
+        btn.disabled = true;
+        btn.textContent = "Додано максимум";  
+        console.log("Button disabled for item " + i);
+    }
+}
+</script>

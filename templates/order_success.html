@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="message-in-middle">
+    <h1>Order Created Successfully!</h1>
+    <p>Thank you for your order. Our manager will contact you soon</p>
+    <a href="{% url 'shop' %}" class="btn amado-btn">Back to shop</a>
+</div>
+{% endblock %}

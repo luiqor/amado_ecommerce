@@ -1,0 +1,71 @@
+{% load static %}
+{% load shop_filter %}
+<div class="row">
+  {% for item in items %}
+    
+    <!-- Single Product Area -->
+    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+     
+      <div class="single-product-wrapper">
+        <!-- Product Image -->
+        <div class="product-img wrap-fixed-height">
+          <div class="image-container">
+          <a href="{% url 'item' slug=item.slug item_id=item.id %}">
+          <img src={{ item.photo.url }} alt="" />
+          </a>
+        </div>
+        </div>
+
+        <!-- Product Description -->
+        <div
+          class="product-description d-flex align-items-center justify-content-between"
+        >
+          <!-- Product Meta Data -->
+          <div class="product-meta-data">
+            <div class="line"></div>
+            <p class="product-price">{{ item.price }} грн</p>
+            <a href="{% url 'item' slug=item.slug item_id=item.id %}">
+              <h6>{{ item.name }}</h6>
+            </a>
+          </div>
+          <!-- Ratings & Cart -->
+          <div class="ratings-cart text-right">
+            <div class="ratings">
+                {% for star in item.stars|to_range %}
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                {% endfor %}
+                {% for star in item.stars|subtract_from_five|to_range %}
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                {% endfor %}
+          </div>
+           
+          {% if item.in_stock %}
+           
+            <div class="cart">
+              <button
+              type="submit"
+              name="addtocart"
+              value="{{item.id}}"
+              class="btn"
+              id="add-button"
+            >
+             {% for item_cart in cart %}
+              {% if item_cart.item.id == item.id %}
+                  <input type="hidden" value="{{  item_cart.qty }}" id="item-qty-in">
+                  {{ item_cart.qty }} 
+                  {% with cart.check_item_availability as is_available %}
+                  <input type="hidden" value="{{ item_cart.available }}" id="item-available">
+                  {% endwith %}
+              {% endif %}
+            {% endfor %}
+              <img src="{% static 'img/core-img/cart.png' %}" alt="Cart"
+              />
+            </button>
+            </div>
+            {% else %} {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

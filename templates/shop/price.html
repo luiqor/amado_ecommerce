@@ -1,0 +1,31 @@
+<div class="widget price mb-50">
+    <!-- Widget Title -->
+    <h6 class="widget-title mb-30">Ціна</h6>
+
+    <div class="widget-desc">
+    <div class="slider-range">
+        <div
+        data-min="{{ smallest_price }}"
+        data-max="{{ biggest_price }}"
+        data-unit="₴"
+        class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+        data-value-min="{{ min_price }}"
+        data-value-max="{{ max_price }}"
+        data-label-result=""
+        >
+        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+        <span
+            class="ui-slider-handle ui-state-default ui-corner-all"
+            tabindex="0"
+        ></span>
+        <span
+            class="ui-slider-handle ui-state-default ui-corner-all"
+            tabindex="0"
+        ></span>
+        </div>
+        {{ filter_form.min_price }}
+        {{ filter_form.max_price }}
+        <div class="range-price">{{ min_price }}₴ - {{ max_price }}₴</div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="widget catagory mb-50">
+      <!-- Widget Title -->
+      <h6 class="widget-title mb-30">Категорії</h6>
+
+      <!--  Catagories  -->
+      <div class="widget-desc">
+      <div class="catagories-menu">
+          <!-- "horizontal-catagories", class="active" for active category li-->
+          {% for radio in filter_form.category %}
+                <div class="form-check">
+                    {{ radio.tag }}
+                    <label class="form-check-label" for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                </div>
+            {% endfor %}
+      </div>
+      </div>
+</div>

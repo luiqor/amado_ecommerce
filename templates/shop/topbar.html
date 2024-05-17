@@ -1,0 +1,31 @@
+<div class="row">
+        <div class="col-12">
+          <div
+            class="product-topbar d-xl-flex align-items-end justify-content-between"
+          >
+            <!-- Total Products -->
+            <div class="total-products">
+                <p>Всього {{ items.start_index }}-{{ items.end_index }} із {{ total_items }}</p>
+            </div>
+            <!-- Sorting -->
+            <form method="get">
+            <div class="product-sorting d-flex">
+              <div class="sort-by-date d-flex align-items-center mr-15">
+                  <p>Сортувати</p>
+                  {{ topbar_form.sort_by }}
+              </div>
+              <div class="view-product d-flex align-items-center">
+                  <p>Показувати</p>
+                  {{ topbar_form.items_per_page }}
+              </div>
+              <input type="hidden" name="category" value="{{ last_selected_category }}">
+              {% for brand in last_selected_brands %}
+                  <input type="hidden" name="brands" value="{{ brand }}">
+              {% endfor %}
+              <input type="hidden" name="min_price" value="{{ min_price }}">
+              <input type="hidden" name="max_price" value="{{ max_price }}">
+            </div>
+          </form>
+          </div>
+        </div>
+</div>

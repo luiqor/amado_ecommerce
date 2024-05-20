@@ -1,0 +1,1 @@
+web: gunicorn amado_ecommerce.wsgi --log-file - --log-level debug

@@ -29,7 +29,7 @@ def items_data(db, categories, brands):
     category1, category2, category3 = categories
     brand1, brand2 = brands
 
-    item_image = "item_image.jpg"
+    item_image = "test_image.jpg"
 
     item1 = Item.objects.create(
         name="Item1",
@@ -104,16 +104,16 @@ def items_data(db, categories, brands):
 def cart(items_data):
     """Fixture for creating a Cart instance with specific items."""
     session = SessionBase()
-    session['_auth_user_id'] = 1
+    session["_auth_user_id"] = 1
 
     item1, item2, *_ = items_data
 
-    session['skey'] = {
-        str(item1.id): {'qty': 5, 'price': item1.price},
-        str(item2.id): {'qty': 2, 'price': item2.price},
+    session["skey"] = {
+        str(item1.id): {"qty": 5, "price": item1.price},
+        str(item2.id): {"qty": 2, "price": item2.price},
     }
 
-    request = RequestFactory().post('/dummy-url')
+    request = RequestFactory().post("/dummy-url")
     request.session = session
 
     return Cart(request)

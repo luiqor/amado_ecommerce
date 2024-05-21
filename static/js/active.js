@@ -93,32 +93,6 @@
         $("a[href='#']").on('click', function ($) {
             $.preventDefault();
         });
-
-        // :: 11.0 Slider Range Price Active Code
-        $('.slider-range-price').each(function () {
-            var min = jQuery(this).data('min');
-            var max = jQuery(this).data('max');
-            var unit = jQuery(this).data('unit');
-            var value_min = jQuery(this).data('value-min');
-            var value_max = jQuery(this).data('value-max');
-            var label_result = jQuery(this).data('label-result');
-            var t = $(this);
-            $(this).slider({
-                range: true,
-                min: min,
-                max: max,
-                values: [value_min, value_max],
-                slide: function (event, ui) {
-                    var result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
-                    t.closest('.slider-range').find('.range-price').html(result);
-
-                    // Update hidden input fields
-                    $('#min_price').val(ui.values[0]);
-                    $('#max_price').val(ui.values[1]);
-                    console.log(ui.values[0], "  ",ui.values[1]);
-                }
-            });
-        });
     });
 
 })(jQuery);

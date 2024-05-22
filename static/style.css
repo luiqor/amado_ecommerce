@@ -11,73 +11,102 @@
     /* ---------------------------------------
     ##### - PLACE YOUR CUSTOM CSS HERE - #####
     --------------------------------------- */
-   .wrap-fixed-height {
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
-    position: relative;
-    overflow: hidden;
-}
+    .wrap-fixed-height {
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+      position: relative;
+      overflow: hidden;
+    }
 
-.wrap-fixed-height .image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
+    .wrap-fixed-height .image-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-.wrap-fixed-height .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    .wrap-fixed-height .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-.display-none {
-    display: none;
-}
+    .display-none {
+      display: none;
+    }
 
-.form-check-input:checked + .form-check-label {
-    transition: 500ms;
-    color: #fbb710;
-}
+    .form-check-input:checked+.form-check-label {
+      transition: 500ms;
+      color: #fbb710;
+    }
 
-.widget.catagory .form-check {
-    margin-bottom: 25px;
-    color: #959595;
-}
+    .widget.catagory .form-check {
+      margin-bottom: 25px;
+      color: #959595;
+    }
 
-.message-in-middle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 40px;
-    bottom: 40px;
-    left: 0;
-    right: 0;
-    margin: auto;
-}
+    .message-in-middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 40px;
+      bottom: 40px;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
 
-input[type="range"] {
-  appearance: none;
-  background: transparent;
-  width: 100%;
-}
-input[type="range"]::-webkit-slider-runnable-track {
-  background-color: #c7d2d8;
-  border-radius: 15px;
-}
-input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  background-color: #fbb710;
-  border-radius: 15px;
-  height: 6px;
-  width: 6px;
-  outline: 3px solid #fbb710;
-}
+    input[type="range"] {
+      appearance: none;
+      background: transparent;
+      width: 100%;
+    }
 
-input[type="range"]:focus::-webkit-slider-thumb {
-  outline: 6px solid #fbb710;
-}
+    input[type="range"]::-webkit-slider-runnable-track {
+      background-color: #c7d2d8;
+      border-radius: 15px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      background-color: #fbb710;
+      border-radius: 15px;
+      height: 12px;
+      width: 12px;
+      outline: 3px solid #fbb710;
+      pointer-events: auto;
+    }
+
+    input[type="range"]:focus::-webkit-slider-thumb {
+      outline: 6px solid #fbb710;
+    }
+
+    .slider-container {
+      width: 100%;
+      height: 6px;
+      position: relative;
+
+      border-radius: 5px;
+    }
+
+    .slider-container .slider-price {
+      height: 100%;
+      position: absolute;
+      border-radius: 5px;
+    }
+
+    .range-input input {
+      position: absolute;
+      width: 100%;
+      background: none;
+      pointer-events: none;
+      cursor: pointer;
+    }
+
+    #max_price::-webkit-slider-runnable-track {
+      background-color: rgba(0, 0, 0, 0);
+    }

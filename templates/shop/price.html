@@ -4,14 +4,16 @@
     <h6 class="widget-title mb-30">Ціна</h6>
 
     <div class="widget-desc">
-        <div class="slider-range">
-            <input type="range" min="{{ smallest_price }}" max="{{ biggest_price }}" value="{{ min_price }}" class="slider slider-price" id="min_price">
-            <input type="range" min="{{ smallest_price }}" max="{{ biggest_price }}" value="{{ max_price }}" class="slider slider-price" id="max_price">
+        <div class="slider-container range-input">
+            <input type="range" min="{{ smallest_price }}" max="{{ biggest_price }}" value="{{ min_price }}" class="slider slider-price min-range" id="min_price">
+            <input type="range" min="{{ smallest_price }}" max="{{ biggest_price }}" value="{{ max_price }}" class="slider slider-price max-range" id="max_price">
+
             <!-- Hidden inputs for min and max price -->
             <input type="hidden" id="min_price_input" name="min_price" value="{{ min_price }}">
             <input type="hidden" id="max_price_input" name="max_price" value="{{ max_price }}">
-            <div class="range-price" id="range_price">{{ min_price }}₴ - {{ max_price }}₴</div>
         </div>
+        <div class="range-price" id="range_price">{{ min_price }}₴ - {{ max_price }}₴</div>
     </div>
+        
 </div>
 <script src="{% static 'js/price-slider.js' %}"></script>
